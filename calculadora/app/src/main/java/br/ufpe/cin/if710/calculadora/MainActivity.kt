@@ -2,6 +2,7 @@ package br.ufpe.cin.if710.calculadora
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
@@ -72,8 +73,12 @@ class MainActivity : Activity() {
         btn_Equal.setOnClickListener{
             val sb = StringBuilder()
             sb.append(text_calc.text)
-            val teste = eval(sb.toString())
-            text_calc.setText(teste.toString())
+            try {
+                val result = eval(sb.toString())
+                text_calc.setText(result.toString())
+            }catch (e :RuntimeException){
+                Toast.makeText(this,"expressao invalida",Toast.LENGTH_SHORT).show()
+            }
         }
         btn_Add.setOnClickListener{
             val sb = StringBuilder()
