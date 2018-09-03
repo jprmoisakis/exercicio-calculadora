@@ -21,7 +21,7 @@ class MainActivity : Activity() {
         btn_9.setOnClickListener{
             text_calc.append("9")
         }
-        //metodo append normal nao funciona para caracteres diferentes de numeros e ponto, criei um stringbuilder para que funcionasse
+        //metodo append normal nao funciona para caracteres diferentes de numeros, criei um stringbuilder para que funcionasse
         // e usei o setSelection para corrigir o problema que ocorre ao usar setText(o cursor do text ficava perdido)
         btn_Divide.setOnClickListener{
             val sb = StringBuilder()
@@ -60,13 +60,20 @@ class MainActivity : Activity() {
             text_calc.setSelection(text_calc.length())
         }
         btn_Dot.setOnClickListener{
-            text_calc.append(".")
+            val sb = StringBuilder()
+            sb.append(text_calc.text).append(".")
+            text_calc.setText(sb.toString())
+            text_calc.setSelection(text_calc.length())
         }
         btn_0.setOnClickListener{
             text_calc.append("0")
         }
+        //Crio um string builder para utilizar o eval
         btn_Equal.setOnClickListener{
-            
+            val sb = StringBuilder()
+            sb.append(text_calc.text)
+            val teste = eval(sb.toString())
+            text_calc.setText(teste.toString())
         }
         btn_Add.setOnClickListener{
             val sb = StringBuilder()
@@ -77,6 +84,12 @@ class MainActivity : Activity() {
         btn_LParen.setOnClickListener{
             val sb = StringBuilder()
             sb.append(text_calc.text).append("(")
+            text_calc.setText(sb.toString())
+            text_calc.setSelection(text_calc.length())
+        }
+        btn_RParen.setOnClickListener{
+            val sb = StringBuilder()
+            sb.append(text_calc.text).append(")")
             text_calc.setText(sb.toString())
             text_calc.setSelection(text_calc.length())
         }
