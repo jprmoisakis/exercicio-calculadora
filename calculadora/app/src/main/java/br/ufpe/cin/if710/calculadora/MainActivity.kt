@@ -75,7 +75,7 @@ class MainActivity : Activity() {
             sb.append(text_calc.text)
             try {
                 val result = eval(sb.toString())
-                text_calc.setText(result.toString())
+                text_info.setText(result.toString())
             }catch (e :RuntimeException){
                 Toast.makeText(this,"expressao invalida",Toast.LENGTH_SHORT).show()
             }
@@ -108,8 +108,26 @@ class MainActivity : Activity() {
             text_calc.setText("")
         }
 
-
     }
+    //Quando ocorre uma mudança de configuração a aplicacao salva o valor atual de text info e text calc no Bundle
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.run{
+            putString("text_info", text_info.text.toString())
+            putString("text_calc", text_info.text.toString())
+        }
+    }
+    //Verifica se existe um estado para ser restaurado, se sim, recupera a informacao salva no Bundle
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState?.run{
+            val info: String = getString("text_info")
+            text_info.setText(info)
+            val calc: String = getString("text_calc")
+            text_info.setText(calc)
+        }
+    }
+
 
     //Como usar a função:
     // eval("2+2") == 4.0
